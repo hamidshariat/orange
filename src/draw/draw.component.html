@@ -1,23 +1,13 @@
 <div class="drawing-container">
     <canvas #canvas
-            (mousedown)="startDrawing($event)"
-            (mousemove)="draw($event)"
-            (mouseup)="stopDrawing($event)"
-            (mouseout)="stopDrawing($event)"
-            (touchstart)="startDrawing($event)"
-            (touchmove)="draw($event)"
-            (touchend)="stopDrawing($event)"
-            (touchcancel)="stopDrawing($event)"
     ></canvas>
   </div>
   
   <div class="controls">
-    <!-- دکمه‌ها -->
     <button (click)="clearCanvas()"><mat-icon>delete</mat-icon></button>
     <button (click)="undoLast()"><mat-icon>undo</mat-icon></button>
     <button (click)="redoLast()"><mat-icon>redo</mat-icon></button>
   
-    <!-- دراپ‌داون برای قلم‌ها -->
     <div class="dropdown" [class.open]="isPenDropdownOpen">
       <button (click)="togglePenDropdown()"><mat-icon>edit</mat-icon></button>
       <ul class="dropdown-menu">
@@ -38,7 +28,6 @@
       </ul>
     </div>
   
-    <!-- ابزارهای دیگر -->
     <button (click)="setTool('eraser')">
       <mat-icon>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">

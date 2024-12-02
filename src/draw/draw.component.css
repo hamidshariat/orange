@@ -121,23 +121,23 @@
     }
   
     .dropdown-menu {
-      width: 90%; /* در موبایل دراپ‌داون کمی کوچکتر می‌شود */
+      width: 90%;
     }
   
     .dropdown-menu li {
-      display: none; /* متن‌های لیست در حالت موبایل پنهان شود */
+      display: none;
     }
   
     .dropdown.open .dropdown-menu li {
-      display: flex; /* آیکون‌ها در حالت باز به نمایش در می‌آیند */
+      display: flex;
     }
   
     .dropdown button mat-icon {
-      font-size: 24px; /* اندازه آیکون در دکمه */
+      font-size: 24px;
     }
   
     .dropdown-menu mat-icon {
-      font-size: 20px; /* اندازه آیکون‌ها در منوی دراپ‌داون */
+      font-size: 20px;
     }
   }
   
@@ -156,7 +156,7 @@
     }
   
     .dropdown-menu {
-      width: 100%; /* دراپ‌داون برای صفحه‌های خیلی کوچک */
+      width: 100%;
     }
   }
   
