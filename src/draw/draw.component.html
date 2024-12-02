@@ -39,5 +39,24 @@
     </button>
     <input type="color" (change)="changeColor($event)" />
     <input class="pen-range" type="range" [value]="size" (input)="changeSize($event)" min="1" max="50" />
+    <div class="dropdown" [class.open]="isToolDropdownOpen">
+        <button (click)="toggleToolDropdown()"><mat-icon>add</mat-icon></button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let tool of toolTypes" (click)="setToolType(tool)">
+            <mat-icon>
+              {{
+                tool.name === 'AddSticker'
+                  ? 'create'
+                  : tool.name === 'AddText'
+                  ? 'brush'
+                  : tool.name === 'AddSignture'
+                  ? 'highlighter'
+                  : 'AddShape'
+              }}
+            </mat-icon>
+            {{ tool.name }}
+          </li>
+        </ul>
+      </div>
   </div>
   

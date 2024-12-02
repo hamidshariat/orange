@@ -28,6 +28,16 @@ export class DrawComponent  implements  AfterViewInit {
 
   isPenDropdownOpen = false;
 
+  toolTypes = [
+    { name: 'AddSticker'},
+    { name: 'AddText'},
+    { name: 'AddSignture'},
+    { name: 'AddShape'},
+  ];
+  selectedToolType = this.toolTypes[0];
+
+  isToolDropdownOpen = false;
+
   ngAfterViewInit() {
     this.initCanvas();
   }
@@ -144,6 +154,10 @@ export class DrawComponent  implements  AfterViewInit {
     this.isPenDropdownOpen = !this.isPenDropdownOpen;
   }
 
+  toggleToolDropdown() {
+    this.isToolDropdownOpen = !this.isToolDropdownOpen;
+  }
+
   setTool(tool: string) {
     if (!this.ctx) return;
     this.tool = tool;
@@ -184,6 +198,16 @@ export class DrawComponent  implements  AfterViewInit {
     }
   
     this.isPenDropdownOpen = false;
+  }
+
+  setToolType(tool: any) {
+    if (!this.ctx) return;
+    this.selectedPenType = tool;
+  
+    this.setTool('tool');
+
+  
+    this.isToolDropdownOpen = false;
   }
   
 }

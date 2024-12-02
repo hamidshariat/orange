@@ -10,7 +10,7 @@
     background-color: rgba(0, 0, 0, 0.9);
     z-index: 100;
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
-    flex-wrap: wrap; /* در حالت موبایل دکمه‌ها در چند ردیف قرار می‌گیرند */
+    flex-wrap: wrap;
   }
   
   .controls button,
@@ -66,7 +66,7 @@
   
   .dropdown-menu {
     position: absolute;
-    bottom: 60px; /* باز شدن به سمت بالا */
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #ffffff;
@@ -77,7 +77,7 @@
     margin: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 150;
-    display: none; /* پنهان در حالت عادی */
+    display: none;
   }
   
   .dropdown-menu li {
@@ -98,13 +98,13 @@
   }
   
   .dropdown.open .dropdown-menu {
-    display: block; /* نمایش در حالت باز */
+    display: block;
   }
   
   @media (max-width: 768px) {
     .controls {
       padding: 10px;
-      justify-content: space-between; /* برای جایگذاری بهتر */
+      justify-content: space-between;
     }
   
     .controls button,
