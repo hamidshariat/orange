@@ -171,6 +171,62 @@ export class DrawComponent implements AfterViewInit {
     }
   }
 
+  pencil(){
+    if (!this.ctx) return;  
+    this.setTool('pen');
+  
+    this.ctx.lineWidth = 1;
+    this.ctx.strokeStyle = '#000000';
+    this.ctx.globalAlpha = 1;
+  
+    const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
+    if (colorInput) {
+      colorInput.value = '#000000';
+    } 
+  }
+
+  Brush(){
+    if (!this.ctx) return;  
+    this.setTool('pen');
+  
+    this.ctx.lineWidth = 5;
+    this.ctx.strokeStyle = '#000000';
+    this.ctx.globalAlpha = 1;
+  
+    const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
+    if (colorInput) {
+      colorInput.value = '#000000';
+    } 
+  }
+
+  Highlighter(){
+    if (!this.ctx) return;  
+    this.setTool('pen');
+  
+    this.ctx.lineWidth = 15;
+    this.ctx.strokeStyle = '#FFFF00';
+    this.ctx.globalAlpha = 0.1;
+  
+    const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
+    if (colorInput) {
+      colorInput.value = '#FFFF00';
+    } 
+  }
+
+  Marker(){
+    if (!this.ctx) return;  
+    this.setTool('pen');
+  
+    this.ctx.lineWidth = 10;
+    this.ctx.strokeStyle = '#000000';
+    this.ctx.globalAlpha = 1;
+  
+    const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
+    if (colorInput) {
+      colorInput.value = '#000000';
+    } 
+  }
+
   private getEventPosition(event: MouseEvent | TouchEvent) {
     const canvas = this.canvasRef.nativeElement;
     if ('touches' in event) {
