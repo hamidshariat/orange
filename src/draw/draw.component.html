@@ -4,29 +4,10 @@
   </div>
   
   <div class="controls">
-    <button (click)="clearCanvas()"><mat-icon>delete</mat-icon></button>
-    <button (click)="undoLast()"><mat-icon>undo</mat-icon></button>
-    <button (click)="redoLast()"><mat-icon>redo</mat-icon></button>
-  
-    <div class="dropdown" [class.open]="isPenDropdownOpen">
-      <button (click)="togglePenDropdown()"><mat-icon>edit</mat-icon></button>
-      <ul class="dropdown-menu">
-        <li *ngFor="let pen of penTypes" (click)="setPenType(pen)">
-          <mat-icon>
-            {{
-              pen.name === 'Pencil'
-                ? 'create'
-                : pen.name === 'Marker'
-                ? 'brush'
-                : pen.name === 'Highlighter'
-                ? 'highlighter'
-                : 'format_paint'
-            }}
-          </mat-icon>
-          {{ pen.name }}
-        </li>
-      </ul>
-    </div>
+    <button (click)="pencil()"><mat-icon>create</mat-icon></button>
+    <button (click)="Brush()"><mat-icon>brush</mat-icon></button>
+    <button (click)="Highlighter()"><mat-icon>highlighter</mat-icon></button>
+    <button (click)="Marker()"><mat-icon>format_paint</mat-icon></button>
   
     <button (click)="setTool('eraser')">
       <mat-icon>
@@ -50,7 +31,7 @@
                   : tool.name === 'AddText'
                   ? 'brush'
                   : tool.name === 'AddSignture'
-                  ? 'highlighter'
+                  ? 'signature'
                   : 'AddShape'
               }}
             </mat-icon>
