@@ -1,15 +1,19 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {Component, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import {HeaderComponent} from '../header/header.component';
 
 @Component({
   selector: 'app-draw',
-  imports: [CommonModule,MatIconModule],
+  imports: [CommonModule, MatIconModule, HeaderComponent],
   templateUrl: './draw.component.html',
+  standalone: true,
   styleUrl: './draw.component.css'
 })
 export class DrawComponent  implements  AfterViewInit {
   @ViewChild('canvas', { static: false }) canvasRef!: ElementRef;
+
+
   private ctx!: CanvasRenderingContext2D;
   private isDrawing = false;
   private tool = 'pen';
@@ -161,53 +165,53 @@ export class DrawComponent  implements  AfterViewInit {
   setTool(tool: string) {
     if (!this.ctx) return;
     this.tool = tool;
-  
+
     if (this.tool === 'eraser') {
       this.ctx.globalCompositeOperation = 'destination-out';
       this.ctx.lineWidth = 10;
       this.ctx.globalAlpha = 1;
     } else {
       this.ctx.globalCompositeOperation = 'source-over';
-  
+
       this.ctx.lineWidth = this.selectedPenType.lineWidth;
       this.ctx.strokeStyle = this.selectedPenType.strokeStyle;
       this.ctx.globalAlpha = this.selectedPenType.globalAlpha;
-  
+
       const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
       if (colorInput) {
         colorInput.value = this.selectedPenType.strokeStyle;
       }
     }
   }
-  
-  
-  
+
+
+
   setPenType(pen: any) {
     if (!this.ctx) return;
     this.selectedPenType = pen;
-  
+
     this.setTool('pen');
-  
+
     this.ctx.lineWidth = pen.lineWidth;
     this.ctx.strokeStyle = pen.strokeStyle;
     this.ctx.globalAlpha = pen.globalAlpha;
-  
+
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
       colorInput.value = pen.strokeStyle;
     }
-  
+
     this.isPenDropdownOpen = false;
   }
 
   setToolType(tool: any) {
     if (!this.ctx) return;
     this.selectedPenType = tool;
-  
+
     this.setTool('tool');
 
-  
+
     this.isToolDropdownOpen = false;
   }
-  
+
 }

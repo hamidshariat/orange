@@ -1,13 +1,10 @@
+<app-header (undoAction)="undoLast()" (redoAction)="redoLast()" (ctx)="clearCanvas()"/>
 <div class="drawing-container">
     <canvas #canvas
     ></canvas>
   </div>
-  
+
   <div class="controls">
-    <button (click)="clearCanvas()"><mat-icon>delete</mat-icon></button>
-    <button (click)="undoLast()"><mat-icon>undo</mat-icon></button>
-    <button (click)="redoLast()"><mat-icon>redo</mat-icon></button>
-  
     <div class="dropdown" [class.open]="isPenDropdownOpen">
       <button (click)="togglePenDropdown()"><mat-icon>edit</mat-icon></button>
       <ul class="dropdown-menu">
@@ -27,7 +24,7 @@
         </li>
       </ul>
     </div>
-  
+
     <button (click)="setTool('eraser')">
       <mat-icon>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
@@ -45,18 +42,18 @@
           <li *ngFor="let tool of toolTypes" (click)="setToolType(tool)">
             <mat-icon>
               {{
-                tool.name === 'AddSticker'
-                  ? 'create'
-                  : tool.name === 'AddText'
-                  ? 'brush'
-                  : tool.name === 'AddSignture'
-                  ? 'highlighter'
-                  : 'AddShape'
+              tool.name === 'AddSticker'
+              ? 'create'
+              : tool.name === 'AddText'
+              ? 'insert_text'
+              : tool.name === 'AddSignture'
+              ? 'highlighter'
+              : 'insert_shape'
               }}
             </mat-icon>
+<mat-icon>insert_text</mat-icon>
             {{ tool.name }}
           </li>
         </ul>
       </div>
   </div>
-  
