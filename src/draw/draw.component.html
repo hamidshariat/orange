@@ -1,15 +1,19 @@
-<app-header (undoAction)="undoLast()" (redoAction)="redoLast()" (ctx)="clearCanvas()"/>
+<app-header
+  (undoAction)="undoLast()"
+  (redoAction)="redoLast()"
+  (ctx)="clearCanvas()"
+  (downloadDrawEmmit)="downloadDraw()"
+/>
 <div class="drawing-container">
-    <canvas #canvas
-    ></canvas>
-  </div>
+  <canvas #canvas></canvas>
+</div>
 
   <div class="controls">
     <button (click)="pencil()"><mat-icon>create</mat-icon></button>
     <button (click)="Brush()"><mat-icon>brush</mat-icon></button>
     <button (click)="Highlighter()"><mat-icon>highlighter</mat-icon></button>
     <button (click)="Marker()"><mat-icon>format_paint</mat-icon></button>
-  
+
     <button (click)="setTool('eraser')">
       <mat-icon>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
@@ -42,3 +46,23 @@
         </ul>
       </div>
   </div>
+
+<ng-template #addShapeDialog>
+  <mat-list>
+    @for (shapes of shapeData; track shapes.id; let last = $last) {
+      <mat-list-item class="!p-5">
+        <div
+          matListItemLine
+          mat-ripple
+          (click)="drawShape(shapes.id)"
+          class="p-3 cursor-pointer"
+        >
+          {{ shapes.name }}
+        </div>
+      </mat-list-item>
+      @if (!last) {
+        <mat-divider />
+      }
+    }
+  </mat-list>
+</ng-template>

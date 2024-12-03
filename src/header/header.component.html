@@ -4,17 +4,20 @@
   <span class="spacer"></span>
 
   <div class="flex ml-auto">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
       <mat-icon>more_horiz</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <div class="flex flex-col">
-      <button (click)="undoLast()"><mat-icon>undo</mat-icon></button>
-      <button (click)="redoLast()"><mat-icon>redo</mat-icon></button>
+        <button (click)="undoLast()"><mat-icon>undo</mat-icon></button>
+        <button (click)="redoLast()"><mat-icon>redo</mat-icon></button>
         <button (click)="clearCanvas()"><mat-icon>delete</mat-icon></button>
-
       </div>
     </mat-menu>
-    <button mat-button>Done</button>
+    <button mat-button (click)="downloadDraw()">Download</button>
   </div>
 </mat-toolbar>
