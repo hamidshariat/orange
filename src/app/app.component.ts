@@ -6,6 +6,7 @@ import { DrawComponent } from '../draw/draw.component';
   selector: 'app-root',
   imports: [RouterOutlet,DrawComponent],
   templateUrl: './app.component.html',
+  standalone: true,
   styleUrl: './app.component.css'
 })
 export class AppComponent {
