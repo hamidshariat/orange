@@ -12,6 +12,59 @@
     box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
     flex-wrap: wrap;
   }
+
+  .pen-buttons button {
+  margin: 5px;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pen-buttons button.active {
+  background-color: #f0f0f0;
+  border-color: #007bff;
+}
+
+.pen-buttons button mat-icon {
+  margin-right: 8px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    flex-wrap: wrap;
+  }
+  
+  .pen-buttons {
+    display: flex;
+    gap: 60px;
+  }
+  
+  .pen-buttons button {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pen-buttons button.active {
+    background-color: #f0f0f0;
+    border-color: #007bff;
+  }
+  
+  .pen-buttons button mat-icon {
+    margin-right: 5px;
+  }
+  
   
   .controls button,
   .controls input[type="color"],
