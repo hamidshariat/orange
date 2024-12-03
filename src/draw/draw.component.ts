@@ -38,6 +38,7 @@ export class DrawComponent  implements  AfterViewInit {
 
   isToolDropdownOpen = false;
 
+
   ngAfterViewInit() {
     this.initCanvas();
   }

@@ -1,0 +1,62 @@
+<div class="editor-container">
+
+        <!-- Contenteditable Div -->
+        <div
+        #editor
+        class="editor"
+        contenteditable="true"
+        placeholder="Start typing here..."
+      ></div>
+
+    <div 
+    class="menu-button" 
+    (click)="toggleToolbar()"
+     >
+    <span class="material-icons">
+      {{ isToolbarVisible ? 'close' : 'menu' }}
+    </span>
+  </div>
+  
+    <!-- Toolbar -->
+    <div
+      class="toolbar"
+      [class.visible]="isToolbarVisible"
+      [class.hidden]="!isToolbarVisible"
+    >
+      <button
+        #boldButton
+        (click)="toggleCommand('bold', boldButton)"
+      >
+        Bold
+      </button>
+      <button
+        #italicButton
+        (click)="toggleCommand('italic', italicButton)"
+      >
+        Italic
+      </button>
+      <button
+        #underlineButton
+        (click)="toggleCommand('underline', underlineButton)"
+      >
+        Underline
+      </button>
+      <button
+        #strikeButton
+        (click)="toggleCommand('strikeThrough', strikeButton)"
+      >
+        Strike
+      </button>
+      <button (click)="applyLink()">Link</button>
+      <button (click)="applyImage()">Image</button>
+      <input type="color" (change)="applyTextColor($event)" title="Text Color" />
+      <input
+        type="color"
+        (change)="applyBackgroundColor($event)"
+        title="Highlight Color"
+      />
+    </div>
+  
+
+  </div>
+  
