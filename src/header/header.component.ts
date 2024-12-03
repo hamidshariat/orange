@@ -1,9 +1,14 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
-import {MatMenu, MatMenuItem, MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
-import {CommonModule} from '@angular/common';
+import {
+  MatMenu,
+  MatMenuItem,
+  MatMenuModule,
+  MatMenuTrigger,
+} from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -12,25 +17,29 @@ import {CommonModule} from '@angular/common';
     MatToolbar,
     MatIconModule,
     MatButtonModule,
-     MatMenuModule,
-
+    MatMenuModule,
   ],
   templateUrl: './header.component.html',
   standalone: true,
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
   @Output() undoAction = new EventEmitter<void>();
   @Output() redoAction = new EventEmitter<void>();
   @Output() ctx = new EventEmitter<void>();
+  @Output() downloadDrawEmmit = new EventEmitter<void>();
 
   undoLast() {
-    this.undoAction.emit()
+    this.undoAction.emit();
   }
   redoLast() {
-    this.redoAction.emit()
+    this.redoAction.emit();
   }
-  clearCanvas(){
-    this.ctx.emit()
+  clearCanvas() {
+    this.ctx.emit();
+  }
+
+  downloadDraw() {
+    this.downloadDrawEmmit.emit();
   }
 }
