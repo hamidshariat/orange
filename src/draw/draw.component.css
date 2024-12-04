@@ -33,6 +33,23 @@
   margin-right: 8px;
 }
 
+button mat-icon {
+  transition: color 0.3s ease;
+  color:icon
+}
+
+.controls button.active {
+  transform: translateY(-15px);
+  background-color: #d1e7ff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.controls button.active mat-icon,
+.controls button.active svg {
+  fill: #007bff;
+}
+
+
 .controls {
     display: flex;
     align-items: center;
