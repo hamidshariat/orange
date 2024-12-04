@@ -1,9 +1,11 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="bg-primary text-primary">
   <span>orangeFeel</span>
 
   <span class="spacer"></span>
 
   <div class="flex ml-auto">
+    <button (click)="toggleTheme()">تغییر تم</button>
+
     <button
       mat-icon-button
       [matMenuTriggerFor]="menu"
@@ -13,9 +15,14 @@
     </button>
     <mat-menu #menu="matMenu">
       <div class="flex flex-col">
-        <button (click)="undoLast()"><mat-icon>undo</mat-icon></button>
-        <button (click)="redoLast()"><mat-icon>redo</mat-icon></button>
-        <button (click)="clearCanvas()"><mat-icon>delete</mat-icon></button>
+        <button (click)="undoLast()"class="text-accent">
+          <mat-icon class="text-accent">undo</mat-icon></button>
+        <button (click)="redoLast()"class="text-accent">
+          <mat-icon class="text-accent">redo</mat-icon>
+        </button>
+
+        <button (click)="clearCanvas()" class="text-accent">
+          <mat-icon class="text-accent">delete</mat-icon></button>
       </div>
     </mat-menu>
     <button mat-button (click)="downloadDraw()">Download</button>

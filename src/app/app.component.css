@@ -1,0 +1,10 @@
+/* app.component.scss */
+body {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+button {
+  background-color: var(--primary-button-bg);
+  color: var(--primary-button-color);
+}

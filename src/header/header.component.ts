@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import {
@@ -9,6 +9,7 @@ import {
 } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import {ThemeService} from '../theme.service';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +22,16 @@ import { CommonModule } from '@angular/common';
   ],
   templateUrl: './header.component.html',
   standalone: true,
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  private themeService = inject(ThemeService);
+
   @Output() undoAction = new EventEmitter<void>();
   @Output() redoAction = new EventEmitter<void>();
   @Output() ctx = new EventEmitter<void>();
   @Output() downloadDrawEmmit = new EventEmitter<void>();
+
 
   undoLast() {
     this.undoAction.emit();
@@ -41,5 +45,9 @@ export class HeaderComponent {
 
   downloadDraw() {
     this.downloadDrawEmmit.emit();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 }
