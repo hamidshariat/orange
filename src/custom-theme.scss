@@ -1,16 +1,68 @@
+// custom-theme.scss
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+:root {
+  --primary-bg-color: #ffffff; // رنگ پس‌زمینه پیش‌فرض
+  --primary-text-color: #000000;
+  --primary-button-bg: #6200ea;
+  --primary-button-color: white;
+  --accent-color: #e91e63;
+  --warn-color: #f44336;
+}
 
-html {
-  @include mat.theme((
-    color: (
-      theme-type: light,
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+// تم تاریک
+[data-theme='dark'] {
+  --primary-bg-color: #121212; // رنگ پس‌زمینه تم تاریک
+  --primary-text-color: #ffffff;
+  --primary-button-bg: #bb86fc;
+  --primary-button-color: black;
+  --accent-color: #03dac6;
+  --warn-color: #cf6679;
+}
+
+/* استایل‌های عمومی */
+button {
+  background-color: var(--primary-button-bg);
+  color: var(--primary-button-color);
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+mat-icon {
+  color: var(--primary-text-color);
+}
+
+.mat-button, mat-toolbar {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+.bg-primary {
+  background-color: var(--primary-button-bg);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+
+.bg-warn {
+  background-color: var(--warn-color);
+}
+
+.text-primary {
+  color: var(--primary-text-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+.text-warn {
+  color: var(--warn-color);
 }
