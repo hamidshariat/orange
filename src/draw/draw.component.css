@@ -53,15 +53,15 @@ button mat-icon {
 .controls {
     display: flex;
     align-items: center;
-    gap: 10px; 
+    gap: 10px;
     flex-wrap: wrap;
   }
-  
+
   .pen-buttons {
     display: flex;
     gap: 60px;
   }
-  
+
   .pen-buttons button {
     margin: 0;
     display: inline-flex;
@@ -72,17 +72,17 @@ button mat-icon {
     border-radius: 5px;
     cursor: pointer;
   }
-  
+
   .pen-buttons button.active {
     background-color: #f0f0f0;
     border-color: #007bff;
   }
-  
+
   .pen-buttons button mat-icon {
     margin-right: 5px;
   }
-  
-  
+
+
   .controls button,
   .controls input[type="color"],
   .controls input[type="range"] {
@@ -98,21 +98,21 @@ button mat-icon {
     align-items: center;
     justify-content: center;
   }
-  
+
   .controls button:hover,
   .controls input[type="color"]:hover,
   .controls input[type="range"]:hover {
     transform: translateY(-15px);
     background-color: #f0f0f0;
   }
-  
+
   .controls button mat-icon,
   .controls button svg {
     width: 28px;
     height: 28px;
     fill: #333333;
   }
-  
+
   .controls input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 14px;
@@ -121,7 +121,7 @@ button mat-icon {
     border-radius: 50%;
     cursor: pointer;
   }
-  
+
   .controls input[type="range"]::-moz-range-thumb {
     width: 14px;
     height: 14px;
@@ -129,11 +129,11 @@ button mat-icon {
     border-radius: 50%;
     cursor: pointer;
   }
-  
+
   .dropdown {
     position: relative;
   }
-  
+
   .dropdown-menu {
     position: absolute;
     bottom: 60px;
@@ -149,7 +149,7 @@ button mat-icon {
     z-index: 150;
     display: none;
   }
-  
+
   .dropdown-menu li {
     padding: 8px 12px;
     cursor: pointer;
@@ -157,60 +157,60 @@ button mat-icon {
     display: flex;
     align-items: center;
   }
-  
+
   .dropdown-menu li:hover {
     background-color: #f0f0f0;
   }
-  
+
   .dropdown-menu mat-icon {
     margin-right: 8px;
     color: #007bff;
   }
-  
+
   .dropdown.open .dropdown-menu {
     display: block;
   }
-  
+
   @media (max-width: 768px) {
     .controls {
       padding: 10px;
       justify-content: space-between;
     }
-  
+
     .controls button,
     .controls input[type="color"],
     .controls input[type="range"] {
       width: 45px;
       height: 45px;
     }
-  
+
     .controls button mat-icon,
     .controls button svg {
       width: 20px;
       height: 20px;
     }
-  
+
     .dropdown-menu {
       width: 90%;
     }
-  
+
     .dropdown-menu li {
       display: none;
     }
-  
+
     .dropdown.open .dropdown-menu li {
       display: flex;
     }
-  
+
     .dropdown button mat-icon {
       font-size: 24px;
     }
-  
+
     .dropdown-menu mat-icon {
       font-size: 20px;
     }
   }
-  
+
   @media (max-width: 480px) {
     .controls button,
     .controls input[type="color"],
@@ -218,15 +218,14 @@ button mat-icon {
       width: 40px;
       height: 40px;
     }
-  
+
     .controls button mat-icon,
     .controls button svg {
       width: 18px;
       height: 18px;
     }
-  
+
     .dropdown-menu {
       width: 100%;
     }
   }
-  

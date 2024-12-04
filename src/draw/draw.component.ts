@@ -11,12 +11,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../header/header.component';
-import { MatButton } from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatList, MatListItem, MatListItemLine } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRipple } from '@angular/material/core';
 import { shapeData } from '../data/draw.constant';
+import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
+import {MatTooltip} from '@angular/material/tooltip';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-draw',
@@ -24,12 +27,16 @@ import { shapeData } from '../data/draw.constant';
     CommonModule,
     MatIconModule,
     HeaderComponent,
-    MatButton,
     MatList,
     MatListItem,
     MatListItemLine,
     MatDividerModule,
     MatRipple,
+    MatIconButton,
+    MatMenu,
+    MatMenuTrigger,
+    MatTooltip,
+    RouterLink,
   ],
   templateUrl: './draw.component.html',
   standalone: true,
@@ -176,62 +183,62 @@ export class DrawComponent implements AfterViewInit {
 
   pencil(){
     this.activeTool = 'pencil';
-    if (!this.ctx) return;  
+    if (!this.ctx) return;
     this.setTool('pen');
-  
+
     this.ctx.lineWidth = 1;
     this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 1;
-  
+
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
       colorInput.value = this.selectedColor;
-    } 
+    }
   }
 
   Brush(){
     this.activeTool = 'brush';
-    if (!this.ctx) return;  
+    if (!this.ctx) return;
     this.setTool('pen');
-  
+
     this.ctx.lineWidth = 5;
     this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 1;
-  
+
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
       colorInput.value = this.selectedColor;
-    } 
+    }
   }
 
   Highlighter(){
     this.activeTool = 'highlighter';
-    if (!this.ctx) return;  
+    if (!this.ctx) return;
     this.setTool('pen');
-  
+
     this.ctx.lineWidth = 15;
     this.ctx.strokeStyle = '#FFFF00';
     this.ctx.globalAlpha = 0.1;
-  
+
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
       colorInput.value = '#FFFF00';
-    } 
+    }
   }
 
   Marker(){
     this.activeTool = 'marker';
-    if (!this.ctx) return;  
+    if (!this.ctx) return;
     this.setTool('pen');
-  
+
     this.ctx.lineWidth = 10;
     this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 1;
-  
+
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
       colorInput.value = this.selectedColor;
-    } 
+    }
   }
 
   private getEventPosition(event: MouseEvent | TouchEvent) {
@@ -250,7 +257,7 @@ export class DrawComponent implements AfterViewInit {
     const input = event.target as HTMLInputElement;
     if (input && input.value) {
       this.selectedColor = input.value;
-  
+
       if (this.ctx) {
         this.ctx.strokeStyle = this.selectedColor;
       }
@@ -360,12 +367,11 @@ export class DrawComponent implements AfterViewInit {
     ctx.stroke(); // Draw the shape
   }
 
-  openShapeDialog(name: string) {
-    if (name === 'AddShape') {
+  openShapeDialog() {
       this.dialog.open(this.addShapeDialog, {
         width: '460px',
       });
-    }
+
   }
 
   downloadDraw() {

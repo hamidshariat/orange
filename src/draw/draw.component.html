@@ -48,27 +48,35 @@
         </mat-icon>
       </button>
 
-    
+
     <input type="color" (change)="changeColor($event)" />
     <input class="pen-range" type="range" [value]="size" (input)="changeSize($event)" min="1" max="50" />
     <div class="dropdown" [class.open]="isToolDropdownOpen">
-        <button (click)="toggleToolDropdown()"><mat-icon>add</mat-icon></button>
-        <ul class="dropdown-menu">
-          <li *ngFor="let tool of toolTypes" (click)="setToolType(tool)">
-            <mat-icon>
-              {{
-                tool.name === 'AddSticker'
-                  ? 'create'
-                  : tool.name === 'AddText'
-                  ? 'brush'
-                  : tool.name === 'AddSignture'
-                  ? 'signature'
-                  : 'AddShape'
-              }}
-            </mat-icon>
-<mat-icon>insert_text</mat-icon>
-            {{ tool.name }}
-          </li>
-        </ul>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="bg-primary">
+        <mat-icon class="text-primary">add</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <div class="flex flex-col">
+          <button (click)="undoLast()" class="text-accent " matTooltip="AddSticker">
+            <mat-icon class="text-accent">mood</mat-icon>
+
+          </button>
+
+          <button (click)="redoLast()" class="text-accent" matTooltip="AddText">
+            <mat-icon class="text-accent">edit_note</mat-icon>
+
+          </button>
+
+          <button routerLink="" class="text-accent " matTooltip="AddSignature">
+            <mat-icon class="text-accent">save_as</mat-icon>
+
+          </button>
+          <button (click)="openShapeDialog()" class="text-accent " matTooltip="AddShape">
+            <mat-icon class="text-accent">category</mat-icon>
+          </button>
+        </div>
+      </mat-menu>
+
       </div>
   </div>
