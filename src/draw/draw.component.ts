@@ -21,6 +21,9 @@ export class DrawComponent  implements  AfterViewInit {
   public size = 5;
   private restore_array: ImageData[] = [];
   private index = -1;
+  public activeTool: string = '';
+  selectedColor: string = '#000000';
+
 
   penTypes = [
     { name: 'Pencil', lineWidth: 1, strokeStyle: '#000000', globalAlpha: 1 },
@@ -134,58 +137,62 @@ export class DrawComponent  implements  AfterViewInit {
   }
 
   pencil(){
+    this.activeTool = 'pencil';
     if (!this.ctx) return;  
     this.setTool('pen');
   
     this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = '#000000';
+    this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 1;
   
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
-      colorInput.value = '#000000';
+      colorInput.value = this.selectedColor;
     } 
   }
 
   Brush(){
+    this.activeTool = 'brush';
     if (!this.ctx) return;  
     this.setTool('pen');
   
     this.ctx.lineWidth = 5;
-    this.ctx.strokeStyle = '#000000';
+    this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 1;
   
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
-      colorInput.value = '#000000';
+      colorInput.value = this.selectedColor;
     } 
   }
 
   Highlighter(){
+    this.activeTool = 'highlighter';
     if (!this.ctx) return;  
     this.setTool('pen');
   
     this.ctx.lineWidth = 15;
-    this.ctx.strokeStyle = '#FFFF00';
+    this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 0.1;
   
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
-      colorInput.value = '#FFFF00';
+      colorInput.value = this.selectedColor;
     } 
   }
 
   Marker(){
+    this.activeTool = 'marker';
     if (!this.ctx) return;  
     this.setTool('pen');
   
     this.ctx.lineWidth = 10;
-    this.ctx.strokeStyle = '#000000';
+    this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 1;
   
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
-      colorInput.value = '#000000';
+      colorInput.value = this.selectedColor;
     } 
   }
 
@@ -198,10 +205,15 @@ export class DrawComponent  implements  AfterViewInit {
     return { offsetX: event.offsetX, offsetY: event.offsetY };
   }
 
-  changeColor(event: any) {
-    if (!this.ctx) return;
-    this.color = event.target.value;
-    this.ctx.strokeStyle = this.color;
+  changeColor(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input && input.value) {
+      this.selectedColor = input.value;
+  
+      if (this.ctx) {
+        this.ctx.strokeStyle = this.selectedColor;
+      }
+    }
   }
 
   changeSize(event: any) {
@@ -226,6 +238,7 @@ export class DrawComponent  implements  AfterViewInit {
       this.ctx.globalCompositeOperation = 'destination-out';
       this.ctx.lineWidth = 10;
       this.ctx.globalAlpha = 1;
+      this.activeTool = 'eraser';
     } else {
       this.ctx.globalCompositeOperation = 'source-over';
 
