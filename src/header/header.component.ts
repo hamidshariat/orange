@@ -21,7 +21,8 @@ import {ThemeService} from '../theme.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  private themeService = inject(ThemeService);
+   themeService = inject(ThemeService);
+  isDarkTheme = false;
 
   @Output() undoAction = new EventEmitter<void>();
   @Output() redoAction = new EventEmitter<void>();

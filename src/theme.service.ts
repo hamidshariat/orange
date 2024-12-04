@@ -6,9 +6,10 @@ import { Injectable } from '@angular/core';
 export class ThemeService {
   constructor() {
     const savedTheme = localStorage.getItem('theme') || 'light';
-    this.setTheme(savedTheme);
+    this.setTheme(savedTheme);  // Apply saved theme during initialization
   }
 
+  // Set the theme and update the document's data-theme attribute
   setTheme(theme: string): void {
     if (theme === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
@@ -19,6 +20,7 @@ export class ThemeService {
     }
   }
 
+  // Toggle between light and dark themes
   toggleTheme(): void {
     const currentTheme = localStorage.getItem('theme') || 'light';
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
