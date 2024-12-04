@@ -46,7 +46,7 @@ button mat-icon {
 
 .controls button.active mat-icon,
 .controls button.active svg {
-  fill: #007bff;
+  /* fill: #007bff; */
 }
 
 
@@ -102,7 +102,7 @@ button mat-icon {
   .controls button:hover,
   .controls input[type="color"]:hover,
   .controls input[type="range"]:hover {
-    transform: scale(1.1);
+    transform: translateY(-15px);
     background-color: #f0f0f0;
   }
   
