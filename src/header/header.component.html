@@ -3,7 +3,7 @@
 
   <span class="spacer"></span>
 
-  <div class="flex ml-auto">
+  <div class="flex ml-auto justify-between">
     <div class="theme-toggle-button">
       <button mat-icon-button (click)="toggleTheme()">
         <mat-icon>{{ toggleTheme.name? 'light_mode' : 'dark_mode' }}</mat-icon>
@@ -29,6 +29,8 @@
       </div>
     </mat-menu>
 
-    <button mat-button class="text-primary">Done</button>
+    <button mat-button class="text-primary bg-primary" (click)="downloadDraw()">
+      <mat-icon class="text-primary ">download</mat-icon>
+    </button>
   </div>
 </mat-toolbar>
