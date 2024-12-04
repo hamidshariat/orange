@@ -1,18 +1,43 @@
-import {Component, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  Output,
+  EventEmitter,
+  inject,
+  TemplateRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import {HeaderComponent} from '../header/header.component';
+import { HeaderComponent } from '../header/header.component';
+import { MatButton } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { MatList, MatListItem, MatListItemLine } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRipple } from '@angular/material/core';
+import { shapeData } from '../data/draw.constant';
 
 @Component({
   selector: 'app-draw',
-  imports: [CommonModule, MatIconModule, HeaderComponent],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    HeaderComponent,
+    MatButton,
+    MatList,
+    MatListItem,
+    MatListItemLine,
+    MatDividerModule,
+    MatRipple,
+  ],
   templateUrl: './draw.component.html',
   standalone: true,
-  styleUrl: './draw.component.css'
+  styleUrl: './draw.component.css',
 })
-export class DrawComponent  implements  AfterViewInit {
+export class DrawComponent implements AfterViewInit {
   @ViewChild('canvas', { static: false }) canvasRef!: ElementRef;
-
+  @ViewChild('addShapeDialog') addShapeDialog!: TemplateRef<unknown>;
 
   private ctx!: CanvasRenderingContext2D;
   private isDrawing = false;
@@ -21,11 +46,17 @@ export class DrawComponent  implements  AfterViewInit {
   public size = 5;
   private restore_array: ImageData[] = [];
   private index = -1;
+  dialog = inject(MatDialog);
 
   penTypes = [
     { name: 'Pencil', lineWidth: 1, strokeStyle: '#000000', globalAlpha: 1 },
     { name: 'Marker', lineWidth: 5, strokeStyle: '#000000', globalAlpha: 1 },
-    { name: 'Highlighter', lineWidth: 15, strokeStyle: '#FFFF00', globalAlpha: 0.1 },
+    {
+      name: 'Highlighter',
+      lineWidth: 15,
+      strokeStyle: '#FFFF00',
+      globalAlpha: 0.1,
+    },
     { name: 'Brush', lineWidth: 10, strokeStyle: '#000000', globalAlpha: 1 },
   ];
   selectedPenType = this.penTypes[0];
@@ -33,10 +64,10 @@ export class DrawComponent  implements  AfterViewInit {
   isPenDropdownOpen = false;
 
   toolTypes = [
-    { name: 'AddSticker'},
-    { name: 'AddText'},
-    { name: 'AddSignture'},
-    { name: 'AddShape'},
+    { name: 'AddSticker' },
+    { name: 'AddText' },
+    { name: 'AddSignture' },
+    { name: 'AddShape' },
   ];
   selectedToolType = this.toolTypes[0];
 
@@ -59,14 +90,18 @@ export class DrawComponent  implements  AfterViewInit {
     this.ctx.lineJoin = 'round';
     this.ctx.strokeStyle = this.color;
 
-    canvas.addEventListener('mousedown', (e: MouseEvent) => this.startDrawing(e));
+    canvas.addEventListener('mousedown', (e: MouseEvent) =>
+      this.startDrawing(e),
+    );
     canvas.addEventListener('mousemove', (e: MouseEvent) => this.draw(e));
     canvas.addEventListener('mouseup', (e: MouseEvent) => this.stopDrawing(e));
     canvas.addEventListener('mouseout', (e: MouseEvent) => {
       if (this.isDrawing) this.stopDrawing(e);
     });
 
-    canvas.addEventListener('touchstart', (e: TouchEvent) => this.startDrawing(e));
+    canvas.addEventListener('touchstart', (e: TouchEvent) =>
+      this.startDrawing(e),
+    );
     canvas.addEventListener('touchmove', (e: TouchEvent) => this.draw(e));
     canvas.addEventListener('touchend', (e: TouchEvent) => this.stopDrawing(e));
     canvas.addEventListener('touchcancel', (e: TouchEvent) => {
@@ -118,7 +153,10 @@ export class DrawComponent  implements  AfterViewInit {
     const canvas = this.canvasRef.nativeElement;
 
     this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const blankImageData = this.ctx.createImageData(canvas.width, canvas.height);
+    const blankImageData = this.ctx.createImageData(
+      canvas.width,
+      canvas.height,
+    );
     if (this.index === this.restore_array.length - 1) {
       this.restore_array.push(blankImageData);
       this.index = this.restore_array.length - 1;
@@ -193,7 +231,10 @@ export class DrawComponent  implements  AfterViewInit {
     const canvas = this.canvasRef.nativeElement;
     if ('touches' in event) {
       const touch = event.touches[0];
-      return { offsetX: touch.clientX - canvas.offsetLeft, offsetY: touch.clientY - canvas.offsetTop };
+      return {
+        offsetX: touch.clientX - canvas.offsetLeft,
+        offsetY: touch.clientY - canvas.offsetTop,
+      };
     }
     return { offsetX: event.offsetX, offsetY: event.offsetY };
   }
@@ -233,14 +274,14 @@ export class DrawComponent  implements  AfterViewInit {
       this.ctx.strokeStyle = this.selectedPenType.strokeStyle;
       this.ctx.globalAlpha = this.selectedPenType.globalAlpha;
 
-      const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
+      const colorInput: HTMLInputElement | null = document.querySelector(
+        'input[type="color"]',
+      );
       if (colorInput) {
         colorInput.value = this.selectedPenType.strokeStyle;
       }
     }
   }
-
-
 
   setPenType(pen: any) {
     if (!this.ctx) return;
@@ -252,7 +293,9 @@ export class DrawComponent  implements  AfterViewInit {
     this.ctx.strokeStyle = pen.strokeStyle;
     this.ctx.globalAlpha = pen.globalAlpha;
 
-    const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
+    const colorInput: HTMLInputElement | null = document.querySelector(
+      'input[type="color"]',
+    );
     if (colorInput) {
       colorInput.value = pen.strokeStyle;
     }
@@ -266,8 +309,59 @@ export class DrawComponent  implements  AfterViewInit {
 
     this.setTool('tool');
 
-
     this.isToolDropdownOpen = false;
   }
 
+  drawShape(shape: string) {
+    const canvas = this.canvasRef.nativeElement;
+    const ctx = this.ctx;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const size = 100;
+
+    ctx.beginPath(); // Start a new path for the shape
+
+    switch (shape) {
+      case 'square':
+        ctx.rect(centerX - size / 2, centerY - size / 2, size, size);
+        break;
+      case 'circle':
+        ctx.arc(centerX, centerY, size / 2, 0, Math.PI * 2);
+        break;
+      case 'triangle':
+        ctx.moveTo(centerX, centerY - size / 2);
+        ctx.lineTo(centerX - size / 2, centerY + size / 2);
+        ctx.lineTo(centerX + size / 2, centerY + size / 2);
+        ctx.closePath();
+        break;
+      case 'rhombus':
+        ctx.moveTo(centerX, centerY - size / 2);
+        ctx.lineTo(centerX - size / 2, centerY);
+        ctx.lineTo(centerX, centerY + size / 2);
+        ctx.lineTo(centerX + size / 2, centerY);
+        ctx.closePath();
+        break;
+    }
+    this.dialog.closeAll();
+    ctx.stroke(); // Draw the shape
+  }
+
+  openShapeDialog(name: string) {
+    if (name === 'AddShape') {
+      this.dialog.open(this.addShapeDialog, {
+        width: '460px',
+      });
+    }
+  }
+
+  downloadDraw() {
+    const dataUrl = this.canvasRef.nativeElement.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = 'draw.png';
+    link.click();
+  }
+
+  protected readonly shapeData = shapeData;
 }

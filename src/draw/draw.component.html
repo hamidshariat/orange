@@ -1,8 +1,12 @@
-<app-header (undoAction)="undoLast()" (redoAction)="redoLast()" (ctx)="clearCanvas()"/>
+<app-header
+  (undoAction)="undoLast()"
+  (redoAction)="redoLast()"
+  (ctx)="clearCanvas()"
+  (downloadDrawEmmit)="downloadDraw()"
+/>
 <div class="drawing-container">
-    <canvas #canvas
-    ></canvas>
-  </div>
+  <canvas #canvas></canvas>
+</div>
 
   <div class="controls">
     <button (click)="pencil()"><mat-icon>create</mat-icon></button>
@@ -42,3 +46,74 @@
         </ul>
       </div>
   </div>
+<div class="controls">
+  <button (click)="pencil()"><mat-icon>create</mat-icon></button>
+  <button (click)="Brush()"><mat-icon>brush</mat-icon></button>
+  <button (click)="Highlighter()"><mat-icon>highlighter</mat-icon></button>
+  <button (click)="Marker()"><mat-icon>format_paint</mat-icon></button>
+
+  <button (click)="setTool('eraser')">
+    <mat-icon>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="#ffffff"
+      >
+        <path
+          d="M690-240h190v80H610l80-80Zm-500 80-85-85q-23-23-23.5-57t22.5-58l440-456q23-24 56.5-24t56.5 23l199 199q23 23 23 57t-23 57L520-160H190Zm296-80 314-322-198-198-442 456 64 64h262Zm-6-240Z"
+        />
+      </svg>
+    </mat-icon>
+  </button>
+  <input type="color" (change)="changeColor($event)" />
+  <input
+    class="pen-range"
+    type="range"
+    [value]="size"
+    (input)="changeSize($event)"
+    min="1"
+    max="50"
+  />
+  <div class="dropdown" [class.open]="isToolDropdownOpen">
+    <button (click)="toggleToolDropdown()"><mat-icon>add</mat-icon></button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let tool of toolTypes" (click)="setToolType(tool)">
+        <mat-icon (click)="openShapeDialog(tool.name)">
+          {{
+            tool.name === "AddSticker"
+              ? "create"
+              : tool.name === "AddText"
+                ? "brush"
+                : tool.name === "AddSignture"
+                  ? "signature"
+                  : "AddShape"
+          }}
+        </mat-icon>
+        <mat-icon>insert_text</mat-icon>
+        {{ tool.name }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<ng-template #addShapeDialog>
+  <mat-list>
+    @for (shapes of shapeData; track shapes.id; let last = $last) {
+      <mat-list-item class="!p-5">
+        <div
+          matListItemLine
+          mat-ripple
+          (click)="drawShape(shapes.id)"
+          class="p-3 cursor-pointer"
+        >
+          {{ shapes.name }}
+        </div>
+      </mat-list-item>
+      @if (!last) {
+        <mat-divider />
+      }
+    }
+  </mat-list>
+</ng-template>
