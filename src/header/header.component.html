@@ -4,27 +4,31 @@
   <span class="spacer"></span>
 
   <div class="flex ml-auto">
-    <button (click)="toggleTheme()">تغییر تم</button>
-
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      aria-label="Example icon-button with a menu"
-    >
+    <div class="theme-toggle-button">
+      <button mat-icon-button (click)="toggleTheme()">
+        <mat-icon>{{ toggleTheme.name? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
       <mat-icon>more_horiz</mat-icon>
     </button>
+
     <mat-menu #menu="matMenu">
       <div class="flex flex-col">
-        <button (click)="undoLast()"class="text-accent">
-          <mat-icon class="text-accent">undo</mat-icon></button>
-        <button (click)="redoLast()"class="text-accent">
+        <button (click)="undoLast()" class="text-accent">
+          <mat-icon class="text-accent">undo</mat-icon>
+        </button>
+
+        <button (click)="redoLast()" class="text-accent">
           <mat-icon class="text-accent">redo</mat-icon>
         </button>
 
         <button (click)="clearCanvas()" class="text-accent">
-          <mat-icon class="text-accent">delete</mat-icon></button>
+          <mat-icon class="text-accent">delete</mat-icon>
+        </button>
       </div>
     </mat-menu>
-    <button mat-button (click)="downloadDraw()">Download</button>
+
+    <button mat-button class="text-primary">Done</button>
   </div>
 </mat-toolbar>
