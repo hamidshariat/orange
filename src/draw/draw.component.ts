@@ -210,12 +210,12 @@ export class DrawComponent implements AfterViewInit {
     this.setTool('pen');
   
     this.ctx.lineWidth = 15;
-    this.ctx.strokeStyle = this.selectedColor;
+    this.ctx.strokeStyle = '#FFFF00';
     this.ctx.globalAlpha = 0.1;
   
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
-      colorInput.value = this.selectedColor;
+      colorInput.value = '#FFFF00';
     } 
   }
 
