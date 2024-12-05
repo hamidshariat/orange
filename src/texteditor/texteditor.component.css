@@ -7,38 +7,32 @@
     padding: 20px;
     position: relative;
   }
-  
-  .menu-button {
-    width: 50px;
-    height: 50px;
-    background-color: #444;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: absolute;
-    bottom: 45%;
-    right: 3%;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-  }
-  
-  .menu-button:hover {
-    background-color: #555;
-  }
-  
-  .menu-button .material-icons {
-    font-size: 32px;
+
+  .editor {
+    background-color: #222;
     color: white;
+    border: 1px solid #444;
+    height: calc(100vh - 30%); /* تنظیم ارتفاع */
+    padding: 10px;
+    overflow-y: auto;
+    outline: none;
+    border-radius: 4px;
+    margin-top: 2%;
+  }
+  
+  .editor[placeholder]:empty:before {
+    content: attr(placeholder);
+    color: #ffc107; /* رنگ متن placeholder */
+    pointer-events: none; /* جلوگیری از تعامل */
+  }
+  
+  /* Menu Button */
+  .menu-button {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
     transition: transform 0.3s ease-in-out;
-  }
-  
-  .menu-button:hover .material-icons {
-    transform: scale(1.1); /* Zoom effect on hover */
-  }
-  
-  .menu-button.active {
-    transform: rotate(90deg); /* Rotate the button when active */
   }
   
   /* Toolbar */
@@ -47,114 +41,73 @@
     padding: 10px;
     border-radius: 4px;
     display: flex;
-    flex-direction: column; /* Align items vertically */
-    gap: 10px; /* Space between buttons */
-    align-items: flex-start; /* Align items to the start */
+    flex-direction: row; /* Align items horizontally */
+    justify-content: space-around; /* Distribute buttons evenly */
+    align-items: center;
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    margin-top: 15px;
-    position: absolute; /* Make the toolbar float */
-    right: 7%; 
+    position: absolute;
+    margin: auto;
+    width: 97%;
+    bottom: 80px; /* Position toolbar above the menu button */
+    left: 0;
+    right: 0;
   }
   
   .toolbar.visible {
-    max-height: 400px; /* Increased max height for vertical layout */
+    max-height: 100px;
     opacity: 1;
+
   }
   
   .toolbar.hidden {
     max-height: 0;
     opacity: 0;
   }
-  
-/* Toolbar Buttons */
-.toolbar button {
-    background-color: #444;
-    color: white;
-    border: 1px solid #888;
-    padding: 5px 15px;
-    cursor: pointer;
-    font-size: 12px;
-    border-radius: 4px;
-    width: 100px; /* Fixed width */
-    height: 30px; /* Fixed height */
+
+  /* استایل دکمه انتخاب‌شده */
+.toolbar button.selected {
+    background-color: #888; /* رنگ متفاوت برای انتخاب‌شده */
+    border-color: #ccc; /* رنگ حاشیه تغییر یافته */
+    font-weight: bold; /* متن ضخیم‌تر */
+    transform: scale(1.1); /* کمی بزرگ‌تر شدن برای تاکید */
   }
   
-  .toolbar button.active {
-    background-color: #888;
-    border-color: #ccc;
-    font-weight: bold;
-  }
   
-  .toolbar button:hover {
-    background-color: #555;
-  }
-  
-  .toolbar input[type='color'] {
-    margin-left: 4px;
-    margin-top: 5px; /* Add margin for vertical alignment */
-    border: none;
-    background: none;
-    cursor: pointer;
-  }
-  
-  /* Editor */
-  .editor {
-    background-color: #222;
-    color: white;
-    border: 1px solid #444;
-    height: calc(60vh - 120px);
-    padding: 10px;
-    overflow-y: auto;
-    outline: none;
-    border-radius: 4px;
-  }
-  
-  .editor[placeholder]:empty:before {
-    content: attr(placeholder);
-    color: #ffc107; /* Yellow placeholder color */
-    pointer-events: none;
-  }
-  
-  /* Media Query for small screens (mobile/tablets) */
-@media (max-width: 768px) {
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
     .toolbar {
-        gap: 3px;
-        margin-right: 7%; /* Position the toolbar 20px from the right edge */
-
+      flex-wrap: wrap; /* Wrap items on smaller screens */
+      justify-content: center; /* Center items */
+      gap: 5px; /* Add spacing */
     }
-    .toolbar button {
-        font-size: 9px; /* Smaller font size */
-        padding: 4px 5px; /* Reduced padding */
-        border-radius: 3px; /* Slightly smaller border radius */
-      }
-    
-    
-    .menu-button .material-icons {
-      font-size: 28px; /* Smaller icon size */
+  
+    .menu-button {
+      bottom: 10px;
+      left: 10px;
     }
-
- 
   }
   
-  /* Media Query for very small screens (extra small mobile) */
   @media (max-width: 480px) {
-
-    .toolbar{
-        gap:1px;
-        margin-right: 7%;
+    .toolbar {
+      flex-wrap: wrap;
+      gap: 3px;
     }
   
-    .toolbar button {
-        font-size: 5px; /* Even smaller font size */
-        padding: 3px 3px; /* Further reduced padding */
-        border-radius: 2px; /* Adjusted for smaller buttons */
-      }
-  
-    .menu-button .material-icons {
-      font-size: 24px;
+    .menu-button {
+      bottom: 5px;
+      left: 5px;
     }
-  
   }
+  
+  /* Color Picker Styling */
+  .color-picker {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  

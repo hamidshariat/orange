@@ -1,12 +1,12 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
-import Quill from 'quill';
+import {MatIconModule} from '@angular/material/icon'
 
 @Component({
   selector: 'app-texteditor',
   templateUrl: './texteditor.component.html',
-  imports: [QuillModule,FormsModule],
+  imports: [QuillModule, FormsModule,MatIconModule],
   styleUrls: ['./texteditor.component.css']
 })
 export class TexteditorComponent {
@@ -19,16 +19,8 @@ export class TexteditorComponent {
 
   toggleToolbar() {
     this.isToolbarVisible = !this.isToolbarVisible;
-  // Add or remove 'small' class from the menu button
-  const menuButton = document.querySelector('.menu-button');
-  if (!this.isToolbarVisible) {
-    menuButton?.classList.add('small');
-  } else {
-    menuButton?.classList.remove('small');
+    
   }
-  }
-
-
 
   toggleCommand(command: string, button: HTMLButtonElement) {
     document.execCommand(command);
@@ -36,33 +28,13 @@ export class TexteditorComponent {
 
     if (isActive) {
       this.renderer.addClass(button, 'active');
+      this.renderer.addClass(button, 'selected');
     } else {
       this.renderer.removeClass(button, 'active');
+      this.renderer.removeClass(button, 'selected');
     }
   }
 
-  // Apply bold formatting
-  applyBold() {
-    document.execCommand('bold');
-
-  }
-
-  // Apply italic formatting
-  applyItalic() {
-    document.execCommand('italic');
-  }
-
-  // Apply underline formatting
-  applyUnderline() {
-    document.execCommand('underline');
-  }
-
-  // Apply strike-through formatting
-  applyStrike() {
-    document.execCommand('strikeThrough');
-  }
-
-  // Insert a hyperlink
   applyLink() {
     const url = prompt('Enter the link URL:');
     if (url) {
@@ -70,7 +42,6 @@ export class TexteditorComponent {
     }
   }
 
-  // Insert an image
   applyImage() {
     const url = prompt('Enter the image URL:');
     if (url) {
@@ -78,16 +49,13 @@ export class TexteditorComponent {
     }
   }
 
-  // Change text color
   applyTextColor(event: any) {
     const color = event.target.value;
     document.execCommand('foreColor', false, color);
   }
 
-  // Change background color of the selected text
   applyBackgroundColor(event: any) {
     const color = event.target.value;
     document.execCommand('hiliteColor', false, color);
   }
-  
 }
