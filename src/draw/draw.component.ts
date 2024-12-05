@@ -215,15 +215,15 @@ export class DrawComponent implements AfterViewInit {
     this.activeTool = 'highlighter';
     if (!this.ctx) return;
     this.setTool('pen');
-
+    this.selectedColor = '#FFFF00';
     this.ctx.lineWidth = 15;
-    this.ctx.strokeStyle = '#FFFF00';
+    this.ctx.strokeStyle = this.selectedColor;
     this.ctx.globalAlpha = 0.1;
 
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
-      colorInput.value = '#FFFF00';
-    }
+      colorInput.value = this.selectedColor;
+    } 
   }
 
   Marker(){
