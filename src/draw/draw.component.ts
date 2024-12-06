@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-draw',
@@ -37,6 +38,8 @@ export class DrawComponent  implements  AfterViewInit {
   selectedToolType = this.toolTypes[0];
 
   isToolDropdownOpen = false;
+
+  constructor(private router: Router){}
 
 
   ngAfterViewInit() {
@@ -162,6 +165,8 @@ export class DrawComponent  implements  AfterViewInit {
   setTool(tool: string) {
     if (!this.ctx) return;
     this.tool = tool;
+
+    
   
     if (this.tool === 'eraser') {
       this.ctx.globalCompositeOperation = 'destination-out';
@@ -202,6 +207,10 @@ export class DrawComponent  implements  AfterViewInit {
   }
 
   setToolType(tool: any) {
+
+    if (tool.name === 'AddText') {
+      this.router.navigate(['/texteditor']);
+    }
     if (!this.ctx) return;
     this.selectedPenType = tool;
   
