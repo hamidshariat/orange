@@ -3,23 +3,21 @@ import {
   ElementRef,
   ViewChild,
   AfterViewInit,
-  Output,
-  EventEmitter,
   inject,
   TemplateRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { HeaderComponent } from '../header/header.component';
-import {MatButton, MatIconButton} from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatList, MatListItem, MatListItemLine } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRipple } from '@angular/material/core';
 import { shapeData } from '../data/draw.constant';
+import {Router, RouterLink} from '@angular/router';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
+import {MatIconButton} from '@angular/material/button';
 import {MatTooltip} from '@angular/material/tooltip';
-import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-draw',
@@ -32,8 +30,8 @@ import {RouterLink} from '@angular/router';
     MatListItemLine,
     MatDividerModule,
     MatRipple,
-    MatIconButton,
     MatMenu,
+    MatIconButton,
     MatMenuTrigger,
     MatTooltip,
     RouterLink,
@@ -168,6 +166,9 @@ export class DrawComponent implements AfterViewInit {
   selectedToolType = this.toolTypes[0];
 
   isToolDropdownOpen = false;
+
+  constructor(private router: Router){}
+
 
   ngAfterViewInit() {
     this.initCanvas();
@@ -410,6 +411,10 @@ export class DrawComponent implements AfterViewInit {
   }
 
   setToolType(tool: any) {
+
+    if (tool.name === 'AddText') {
+      this.router.navigate(['/texteditor']);
+    }
     if (!this.ctx) return;
     this.selectedPenType = tool;
 

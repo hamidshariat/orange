@@ -1,0 +1,40 @@
+<div class="editor-container">
+
+    <!-- Contenteditable Div -->
+    <div #editor class="editor" contenteditable="true" placeholder="Start typing here..."></div>
+  
+    <!-- Menu Button -->
+    <button mat-fab color="accent" class="menu-button" (click)="toggleToolbar()">
+      <mat-icon>{{ isToolbarVisible ? 'close' : 'add' }}</mat-icon>
+    </button>
+  
+    <!-- Toolbar -->
+    <div
+      class="toolbar"
+      [class.visible]="isToolbarVisible"
+      [class.hidden]="!isToolbarVisible"
+    >
+      <button mat-mini-fab color="primary" (click)="toggleCommand('bold', boldButton)" #boldButton>
+        <mat-icon>format_bold</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" (click)="toggleCommand('italic', italicButton)" #italicButton>
+        <mat-icon>format_italic</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" (click)="toggleCommand('underline', underlineButton)" #underlineButton>
+        <mat-icon>format_underline</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" (click)="toggleCommand('strikeThrough', strikeButton)" #strikeButton>
+        <mat-icon>strikethrough_s</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" (click)="applyLink()">
+        <mat-icon>link</mat-icon>
+      </button>
+      <button mat-mini-fab color="primary" (click)="applyImage()">
+        <mat-icon>image</mat-icon>
+      </button>
+      <input type="color" (change)="applyTextColor($event)" title="Text Color" class="color-picker" />
+      <input type="color" (change)="applyBackgroundColor($event)" title="Highlight Color" class="color-picker" />
+    </div>
+  
+  </div>
+  
