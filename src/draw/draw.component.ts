@@ -56,11 +56,17 @@ export class DrawComponent implements AfterViewInit {
   dialog = inject(MatDialog);
   public activeTool: string = '';
   selectedColor: string = '#000000';
+  isSignature =false;
+
+  addSignature(){
+    debugger
+    this.isSignature=!this.isSignature
+  }
 
   addTextBox() {
     const canvas = this.canvasRef.nativeElement;
     const textBox = document.createElement('textarea');
-  
+
     textBox.style.position = 'absolute';
     textBox.style.left = `${canvas.offsetLeft + canvas.width / 2 - 50}px`;
     textBox.style.top = `${canvas.offsetTop + canvas.height / 2 - 25}px`;
@@ -72,43 +78,43 @@ export class DrawComponent implements AfterViewInit {
     textBox.style.border = '1px dashed #ccc';
     textBox.style.outline = 'none';
     textBox.style.resize = 'none';
-  
+
     textBox.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
         e.preventDefault();
         this.saveTextToCanvas(textBox);
       }
     });
-  
+
     document.body.appendChild(textBox);
-  
+
     this.makeDraggable(textBox);
   }
-  
+
   saveTextToCanvas(textBox: HTMLTextAreaElement) {
     const text = textBox.value.trim();
     if (!text) {
       textBox.remove();
       return;
     }
-  
+
     const canvas = this.canvasRef.nativeElement;
     const rect = textBox.getBoundingClientRect();
     const x = rect.left - canvas.offsetLeft;
     const y = rect.top - canvas.offsetTop + parseInt(textBox.style.fontSize || '16', 10);
-  
+
     this.ctx.fillStyle = textBox.style.color || '#000';
     this.ctx.font = `${textBox.style.fontSize || '16px'} Arial`;
     this.ctx.fillText(text, x, y);
-  
+
     textBox.remove();
   }
-  
+
   makeDraggable(element: HTMLElement) {
     let offsetX = 0;
     let offsetY = 0;
     let isDragging = false;
-  
+
     const onMouseDown = (e: MouseEvent) => {
       isDragging = true;
       offsetX = e.clientX - element.offsetLeft;
@@ -116,26 +122,26 @@ export class DrawComponent implements AfterViewInit {
       document.addEventListener('mousemove', onMouseMove);
       document.addEventListener('mouseup', onMouseUp);
     };
-  
+
     const onMouseMove = (e: MouseEvent) => {
       if (!isDragging) return;
       element.style.left = `${e.clientX - offsetX}px`;
       element.style.top = `${e.clientY - offsetY}px`;
     };
-  
+
     const onMouseUp = () => {
       isDragging = false;
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
-  
+
     element.addEventListener('mousedown', onMouseDown);
   }
 
   addText() {
     this.addTextBox();
   }
-  
+
 
 
   penTypes = [
@@ -303,7 +309,7 @@ export class DrawComponent implements AfterViewInit {
     const colorInput: HTMLInputElement | null = document.querySelector('input[type="color"]');
     if (colorInput) {
       colorInput.value = this.selectedColor;
-    } 
+    }
   }
 
   Marker(){
