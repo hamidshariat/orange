@@ -1,12 +1,12 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
-import { QuillModule } from 'ngx-quill';
 import { FormsModule } from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon'
 
 @Component({
   selector: 'app-texteditor',
   templateUrl: './texteditor.component.html',
-  imports: [QuillModule, FormsModule,MatIconModule],
+  imports: [ FormsModule, MatIconModule],
+  standalone: true,
   styleUrls: ['./texteditor.component.css']
 })
 export class TexteditorComponent {
@@ -19,7 +19,7 @@ export class TexteditorComponent {
 
   toggleToolbar() {
     this.isToolbarVisible = !this.isToolbarVisible;
-    
+
   }
 
   toggleCommand(command: string, button: HTMLButtonElement) {

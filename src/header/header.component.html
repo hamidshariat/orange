@@ -1,0 +1,36 @@
+<mat-toolbar color="primary" class="bg-primary text-primary">
+  <span>orangeFeel</span>
+
+  <span class="spacer"></span>
+
+  <div class="flex ml-auto justify-between">
+    <div class="theme-toggle-button">
+      <button mat-icon-button (click)="toggleTheme()">
+        <mat-icon>{{ toggleTheme.name? 'light_mode' : 'dark_mode' }}</mat-icon>
+      </button>
+    </div>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <div class="flex flex-col">
+        <button (click)="undoLast()" class="text-accent">
+          <mat-icon class="text-accent">undo</mat-icon>
+        </button>
+
+        <button (click)="redoLast()" class="text-accent">
+          <mat-icon class="text-accent">redo</mat-icon>
+        </button>
+
+        <button (click)="clearCanvas()" class="text-accent">
+          <mat-icon class="text-accent">delete</mat-icon>
+        </button>
+      </div>
+    </mat-menu>
+
+    <button mat-button class="text-primary bg-primary" (click)="downloadDraw()">
+      <mat-icon class="text-primary ">download</mat-icon>
+    </button>
+  </div>
+</mat-toolbar>

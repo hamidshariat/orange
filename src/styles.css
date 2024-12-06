@@ -1,7 +1,94 @@
-/* You can add global styles to this file, and also import other style files */
+/* Light theme */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/*:root {*/
+/*  --mat-indigo: #3f51b5;*/
+/*  --mat-pink: #e91e63;*/
+/*  --mat-red: #f44336;*/
+
+/*  !* Primary, accent, and warn colors *!*/
+/*  --light-primary: #3f51b5; !* mat-indigo *!*/
+/*  --light-accent: #e91e63; !* mat-pink *!*/
+/*  --light-warn: #f44336; !* mat-red *!*/
+
+/*  !* Default light theme colors *!*/
+/*  --primary-color: var(--light-primary);*/
+/*  --accent-color: var(--light-accent);*/
+/*  --warn-color: var(--light-warn);*/
+/*}*/
+
+/*!* Dark theme *!*/
+/*[data-theme='dark'] {*/
+/*  --mat-deep-purple: #673ab7;*/
+/*  --mat-teal: #009688;*/
+/*  --mat-orange: #ff9800;*/
+
+/*  !* Primary, accent, and warn colors for dark theme *!*/
+/*  --dark-primary: #673ab7; !* mat-deep-purple *!*/
+/*  --dark-accent: #009688; !* mat-teal *!*/
+/*  --dark-warn: #ff9800; !* mat-orange *!*/
+
+/*  !* Dark theme specific colors *!*/
+/*  --primary-color: var(--dark-primary);*/
+/*  --accent-color: var(--dark-accent);*/
+/*  --warn-color: var(--dark-warn);*/
+/*}*/
+
+/*!* Apply the theme using CSS variables *!*/
+/*body {*/
+/*  background-color: var(--primary-color);*/
+/*  color: var(--accent-color);*/
+/*}*/
+/* تم روشن */
+:root {
+  --primary-bg-color: #ffffff;
+  --primary-text-color: #000000;
+  --primary-button-bg: #6200ea; /* رنگ پس‌زمینه دکمه‌ها */
+  --primary-button-color: white; /* رنگ متن دکمه‌ها */
+  --accent-color: #e91e63;  /* رنگ برجسته */
+  --warn-color: #f44336;    /* رنگ هشدار */
+}
+
+/* تم تاریک */
+[data-theme='dark'] {
+  --primary-bg-color: #121212;
+  --primary-text-color: #ffffff;
+  --primary-button-bg: #bb86fc; /* رنگ پس‌زمینه دکمه‌ها در تم تاریک */
+  --primary-button-color: black; /* رنگ متن دکمه‌ها در تم تاریک */
+  --accent-color: #03dac6;  /* رنگ برجسته در تم تاریک */
+  --warn-color: #cf6679;    /* رنگ هشدار در تم تاریک */
+}
+
+/* اعمال رنگ‌ها به سایر المان‌ها */
+html {
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+button {
+  background-color: var(--primary-button-bg);  /* استفاده از متغیر برای پس‌زمینه دکمه */
+  color: var(--primary-button-color);  /* استفاده از متغیر برای رنگ متن دکمه */
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* تم‌های سفارشی برای سایر قسمت‌ها */
+.accent {
+  color: var(--accent-color);
+}
+
+.warn {
+  color: var(--warn-color);
+}
+
+/* تغییرات ظاهری در دکمه‌ها برای حالت hover */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Add Tailwind's utility classes */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
