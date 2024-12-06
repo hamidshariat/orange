@@ -7,6 +7,26 @@ html, body {
   touch-action: none;
 }
 
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todo-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.todo-item span {
+  flex-grow: 1;
+}
+
+.todo-item button {
+  margin-left: 10px;
+}
+
+
+
 canvas {
   display: block;
   width: 100%;
@@ -43,6 +63,12 @@ canvas {
   align-items: center;
   justify-content: center;
   transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.menu-buttons {
+  display: contents;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .controls button:hover,

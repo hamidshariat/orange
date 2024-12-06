@@ -20,6 +20,7 @@ import { shapeData } from '../data/draw.constant';
 import {MatMenu, MatMenuTrigger} from '@angular/material/menu';
 import {MatTooltip} from '@angular/material/tooltip';
 import {RouterLink} from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-draw',
@@ -37,6 +38,7 @@ import {RouterLink} from '@angular/router';
     MatMenuTrigger,
     MatTooltip,
     RouterLink,
+    FormsModule,
   ],
   templateUrl: './draw.component.html',
   standalone: true,
@@ -56,6 +58,99 @@ export class DrawComponent implements AfterViewInit {
   dialog = inject(MatDialog);
   public activeTool: string = '';
   selectedColor: string = '#000000';
+  isMenuOpen = false;
+  todoToggle = false;
+  todoList2: { text: string, completed: boolean }[] = [];
+
+  addTodo() {
+    const newTodoText = prompt("Enter your todo:");
+    if (newTodoText) {
+      this.todoList2.push({ text: newTodoText, completed: false });
+    }
+  }
+
+  toggleTodoCompletion(index: number) {
+    this.todoList2[index].completed = !this.todoList2[index].completed;
+  }
+
+  removeTodo(index: number) {
+    this.todoList2.splice(index, 1);
+  }
+
+  todoTogglefuc (){
+    this.todoToggle=!this.todoToggle;
+  }
+
+  // addTask() {
+  //   if (this.newTask.trim()) {
+  //     this.tasks.push({ title: this.newTask.trim(), completed: false });
+  //     this.newTask = '';
+  //   }
+  // }
+
+  // removeTask(taskToRemove: { title: string; completed: boolean }) {
+  //   this.tasks = this.tasks.filter((task) => task !== taskToRemove);
+  // }
+
+
+  // toggleTask(task: { title: string; completed: boolean }) {
+  //   task.completed = !task.completed;
+  // }
+
+
+  // addTodoOnCanvas(event: MouseEvent) {
+  //   const canvas = this.canvasRef.nativeElement;
+  //   const { offsetX, offsetY } = this.getEventPosition(event);
+
+  //   this.currentTodoText = prompt("Enter your todo:") || '';
+
+  //   if (this.currentTodoText.trim()) {
+  //     this.todoList.push({ x: offsetX, y: offsetY, text: this.currentTodoText, completed: false });
+  //     this.drawTodos();
+  //   }
+
+  //   console.log('todo list ',this.currentTodoText);
+    
+  // }
+
+  //  toggleTodoCompletion(index: number) {
+  //   this.todoList[index].completed = !this.todoList[index].completed;
+  //   this.drawTodos();
+  // }
+
+  // removeTodo(index: number) {
+  //   this.todoList.splice(index, 1);
+  //   this.drawTodos();
+  // }
+
+  // drawTodos() {
+  //   const canvas = this.canvasRef.nativeElement;
+  //   this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  //   this.ctx.putImageData(this.restore_array[this.index], 0, 0);
+
+  //   this.todoList.forEach(todo => {
+  //     this.ctx.font = '16px Arial';
+  //     this.ctx.fillStyle = todo.completed ? 'gray' : this.selectedColor;
+  //     this.ctx.fillText(todo.text, todo.x, todo.y);
+
+  //     if (todo.completed) {
+  //       this.ctx.beginPath();
+  //       this.ctx.arc(todo.x - 20, todo.y, 10, 0, Math.PI * 2);
+  //       this.ctx.stroke();
+  //       this.ctx.fillStyle = 'green';
+  //       this.ctx.fill();
+  //     } else {
+  //       this.ctx.beginPath();
+  //       this.ctx.arc(todo.x - 20, todo.y, 10, 0, Math.PI * 2);
+  //       this.ctx.stroke();
+  //     }
+  //   });
+  // }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
   addTextBox() {
     const canvas = this.canvasRef.nativeElement;
@@ -83,7 +178,7 @@ export class DrawComponent implements AfterViewInit {
     document.body.appendChild(textBox);
   
     this.makeDraggable(textBox);
-  }
+  }  
   
   saveTextToCanvas(textBox: HTMLTextAreaElement) {
     const text = textBox.value.trim();
@@ -259,6 +354,9 @@ export class DrawComponent implements AfterViewInit {
       const canvas = this.canvasRef.nativeElement;
       this.ctx.putImageData(this.restore_array[this.index], 0, 0);
     }
+
+    console.log('298745982745987249857',this.restore_array);
+
   }
 
   pencil(){
@@ -420,7 +518,7 @@ export class DrawComponent implements AfterViewInit {
     const centerY = canvas.height / 2;
     const size = 100;
 
-    ctx.beginPath(); // Start a new path for the shape
+    ctx.beginPath();
 
     switch (shape) {
       case 'square':
@@ -444,7 +542,7 @@ export class DrawComponent implements AfterViewInit {
         break;
     }
     this.dialog.closeAll();
-    ctx.stroke(); // Draw the shape
+    ctx.stroke();
   }
 
   openShapeDialog() {

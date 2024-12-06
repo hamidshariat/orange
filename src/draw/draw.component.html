@@ -1,58 +1,97 @@
-<app-header
-  (undoAction)="undoLast()"
-  (redoAction)="redoLast()"
-  (ctx)="clearCanvas()"
-  (downloadDrawEmmit)="downloadDraw()"
-/>
+<app-header (undoAction)="undoLast()" (redoAction)="redoLast()" (ctx)="clearCanvas()"
+  (downloadDrawEmmit)="downloadDraw()" />
+
+<div *ngIf="todoList2.length > 0">
+  <mat-list>
+    <mat-list-item *ngFor="let todo of todoList2; let i = index">
+      <div class="todo-item">
+        <input type="checkbox" [checked]="todo.completed" (change)="toggleTodoCompletion(i)" />
+        <span [style.textDecoration]="todo.completed ? 'line-through' : 'none'">{{ todo.text }}</span>
+        <button mat-icon-button (click)="removeTodo(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-list-item>
+  </mat-list>
+</div>
+
 <div class="drawing-container">
   <canvas #canvas></canvas>
 </div>
 
+
+
+
+
 <ng-template #addShapeDialog>
   <mat-list>
     @for (shapes of shapeData; track shapes.id; let last = $last) {
-      <mat-list-item class="!p-5">
-        <div
-          matListItemLine
-          mat-ripple
-          (click)="drawShape(shapes.id)"
-          class="p-3 cursor-pointer"
-        >
-          {{ shapes.name }}
-        </div>
-      </mat-list-item>
-      @if (!last) {
-        <mat-divider />
-      }
+    <mat-list-item class="!p-5">
+      <div matListItemLine mat-ripple (click)="drawShape(shapes.id)" class="p-3 cursor-pointer">
+        {{ shapes.name }}
+      </div>
+    </mat-list-item>
+    @if (!last) {
+    <mat-divider />
+    }
     }
   </mat-list>
 </ng-template>
-  <div class="controls">
-      <button class="bg-primary" [class.active]="activeTool === 'pencil'" (click)="pencil()">
-        <mat-icon class="text-primary" [style.color]="activeTool === 'pencil' ? selectedColor : ''">create</mat-icon>
-      </button>
-      <button [class.active]="activeTool === 'brush'" (click)="Brush()">
-        <mat-icon [style.color]="activeTool === 'brush' ? selectedColor : ''">brush</mat-icon>
-      </button>
-      <button [class.active]="activeTool === 'highlighter'" (click)="Highlighter()">
-        <mat-icon [style.color]="activeTool === 'highlighter' ? selectedColor : '#FFFF00'">highlighter</mat-icon>
-      </button>
-      <button [class.active]="activeTool === 'marker'" (click)="Marker()">
-        <mat-icon [style.color]="activeTool === 'marker' ? selectedColor : ''">format_paint</mat-icon>
-      </button>
-      <button [class.active]="activeTool === 'eraser'" (click)="setTool('eraser')">
-        <mat-icon>
-          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
-            <path d="M690-240h190v80H610l80-80Zm-500 80-85-85q-23-23-23.5-57t22.5-58l440-456q23-24 56.5-24t56.5 23l199 199q23 23 23 57t-23 57L520-160H190Zm296-80 314-322-198-198-442 456 64 64h262Zm-6-240Z" />
-          </svg>
-        </mat-icon>
-      </button>
+<div class="controls">
+  <button *ngIf="!isMenuOpen" class="bg-primary" (click)="toggleMenu()">
+    <mat-icon class="text-primary" [style.color]="isMenuOpen ? selectedColor : ''">
+      create
+    </mat-icon>
+  </button>
+
+  <button *ngIf="!isMenuOpen" class="bg-primary" (click)="clearCanvas()">
+    <mat-icon class="text-primary" [style.color]="isMenuOpen ? selectedColor : ''">
+      delete
+    </mat-icon>
+  </button>
+
+  <button *ngIf="!isMenuOpen" class="bg-primary" (click)="addTodo()">
+    <mat-icon class="text-primary" [style.color]="isMenuOpen ? selectedColor : ''">
+      check_box_outline_blank
+    </mat-icon>
+  </button>
+
+  <div *ngIf="isMenuOpen" class="menu-buttons">
+    <button [class.active]="activeTool === 'pencil'" (click)="pencil()">
+      <mat-icon [style.color]="activeTool === 'pencil' ? selectedColor : ''">
+        create
+      </mat-icon>
+    </button>
+    <button [class.active]="activeTool === 'brush'" (click)="Brush()">
+      <mat-icon [style.color]="activeTool === 'brush' ? selectedColor : ''">
+        brush
+      </mat-icon>
+    </button>
+    <button [class.active]="activeTool === 'highlighter'" (click)="Highlighter()">
+      <mat-icon [style.color]="activeTool === 'highlighter' ? selectedColor : '#FFFF00'">
+        highlighter
+      </mat-icon>
+    </button>
+    <button [class.active]="activeTool === 'marker'" (click)="Marker()">
+      <mat-icon [style.color]="activeTool === 'marker' ? selectedColor : ''">
+        format_paint
+      </mat-icon>
+    </button>
+    <button [class.active]="activeTool === 'eraser'" (click)="setTool('eraser')">
+      <mat-icon>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#ffffff">
+          <path
+            d="M690-240h190v80H610l80-80Zm-500 80-85-85q-23-23-23.5-57t22.5-58l440-456q23-24 56.5-24t56.5 23l199 199q23 23 23 57t-23 57L520-160H190Zm296-80 314-322-198-198-442 456 64 64h262Zm-6-240Z" />
+        </svg>
+      </mat-icon>
+    </button>
 
 
     <input type="color" (change)="changeColor($event)" />
     <input class="pen-range" type="range" [value]="size" (input)="changeSize($event)" min="1" max="50" />
     <div class="dropdown" [class.open]="isToolDropdownOpen">
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="bg-primary">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu"
+        class="bg-primary">
         <mat-icon class="text-primary">add</mat-icon>
       </button>
 
@@ -77,6 +116,10 @@
           </button>
         </div>
       </mat-menu>
-
-      </div>
+    </div>
+    <button (click)="toggleMenu()">
+      <mat-icon>
+        undo
+      </mat-icon>
+    </button>
   </div>
