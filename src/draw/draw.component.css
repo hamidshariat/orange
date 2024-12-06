@@ -174,11 +174,12 @@ canvas {
     width: 40px;
     height: 40px;
   }
-
+  
   .controls button mat-icon,
   .controls button svg {
     width: 18px;
     height: 18px;
+    transform: scale(0.7);
   }
 
   .dropdown-menu {
